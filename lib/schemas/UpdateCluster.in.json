@@ -1,0 +1,226 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "AddressId": "ADID1234ab12-3eec-4eb3-9be6-9374c10eb51b",
+                "ClusterId": "CID123e4567-e89b-12d3-a456-426655440000",
+                "Description": "Updated the address to send this to image processing - RJ"
+            },
+            "properties": {
+                "AddressId": {
+                    "description": "The ID of the updated <a>Address</a> object.",
+                    "maxLength": 40,
+                    "minLength": 40,
+                    "pattern": "ADID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+                    "type": "string"
+                },
+                "ClusterId": {
+                    "description": "The cluster ID of the cluster that you want to update, for example <code>CID123e4567-e89b-12d3-a456-426655440000</code>.",
+                    "maxLength": 39,
+                    "minLength": 39,
+                    "pattern": "CID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+                    "type": "string"
+                },
+                "Description": {
+                    "description": "The updated description of this cluster.",
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "ForwardingAddressId": {
+                    "description": "The updated ID for the forwarding address for a cluster. This field is not supported in most regions.",
+                    "maxLength": 40,
+                    "minLength": 40,
+                    "pattern": "ADID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+                    "type": "string"
+                },
+                "Notification": {
+                    "description": "The new or updated <a>Notification</a> object.",
+                    "properties": {
+                        "JobStatesToNotify": {
+                            "description": "The list of job states that will trigger a notification for this job.",
+                            "items": {
+                                "enum": [
+                                    "New",
+                                    "PreparingAppliance",
+                                    "PreparingShipment",
+                                    "InTransitToCustomer",
+                                    "WithCustomer",
+                                    "InTransitToAWS",
+                                    "WithAWSSortingFacility",
+                                    "WithAWS",
+                                    "InProgress",
+                                    "Complete",
+                                    "Cancelled",
+                                    "Listing",
+                                    "Pending"
+                                ],
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "NotifyAll": {
+                            "description": "Any change in job state will trigger a notification for this job.",
+                            "type": "boolean"
+                        },
+                        "SnsTopicARN": {
+                            "description": "<p>The new SNS <code>TopicArn</code> that you want to associate with this job. You can create Amazon Resource Names (ARNs) for topics by using the <a href=\"http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html\">CreateTopic</a> Amazon SNS API action.</p> <p>You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using the <a href=\"http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html\">Subscribe</a> AWS Simple Notification Service (SNS) API action.</p>",
+                            "maxLength": 255,
+                            "pattern": "arn:aws.*:sns:.*:[0-9]{12}:.*",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "Resources": {
+                    "description": "The updated arrays of <a>JobResource</a> objects that can include updated <a>S3Resource</a> objects or <a>LambdaResource</a> objects.",
+                    "properties": {
+                        "Ec2AmiResources": {
+                            "description": "The Amazon Machine Images (AMIs) associated with this job.",
+                            "items": {
+                                "description": "A JSON-formatted object that contains the IDs for an Amazon Machine Image (AMI), including the Amazon EC2 AMI ID and the Snowball Edge AMI ID. Each AMI has these two IDs to simplify identifying the AMI in both the AWS Cloud and on the device.",
+                                "properties": {
+                                    "AmiId": {
+                                        "description": "The ID of the AMI in Amazon EC2.",
+                                        "maxLength": 21,
+                                        "minLength": 12,
+                                        "pattern": "(ami-[0-9a-f]{8})|(ami-[0-9a-f]{17})",
+                                        "type": "string"
+                                    },
+                                    "SnowballAmiId": {
+                                        "description": "The ID of the AMI on the supported device.",
+                                        "minLength": 1,
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "AmiId"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "LambdaResources": {
+                            "description": "The Python-language Lambda functions for this job.",
+                            "items": {
+                                "description": "Identifies ",
+                                "properties": {
+                                    "EventTriggers": {
+                                        "description": "The array of ARNs for <a>S3Resource</a> objects to trigger the <a>LambdaResource</a> objects associated with this job.",
+                                        "items": {
+                                            "description": "The container for the <a>EventTriggerDefinition$EventResourceARN</a>.",
+                                            "properties": {
+                                                "EventResourceARN": {
+                                                    "description": "The Amazon Resource Name (ARN) for any local Amazon S3 resource that is an AWS Lambda function's event trigger associated with this job.",
+                                                    "maxLength": 255,
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "LambdaArn": {
+                                        "description": "An Amazon Resource Name (ARN) that represents an AWS Lambda function to be triggered by PUT object actions on the associated local Amazon S3 resource.",
+                                        "maxLength": 255,
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "S3Resources": {
+                            "description": "An array of <code>S3Resource</code> objects.",
+                            "items": {
+                                "description": "Each <code>S3Resource</code> object represents an Amazon S3 bucket that your transferred data will be exported from or imported into. For export jobs, this object can have an optional <code>KeyRange</code> value. The length of the range is defined at job creation, and has either an inclusive <code>BeginMarker</code>, an inclusive <code>EndMarker</code>, or both. Ranges are UTF-8 binary sorted.",
+                                "properties": {
+                                    "BucketArn": {
+                                        "description": "The Amazon Resource Name (ARN) of an Amazon S3 bucket.",
+                                        "maxLength": 255,
+                                        "type": "string"
+                                    },
+                                    "KeyRange": {
+                                        "description": "For export jobs, you can provide an optional <code>KeyRange</code> within a specific Amazon S3 bucket. The length of the range is defined at job creation, and has either an inclusive <code>BeginMarker</code>, an inclusive <code>EndMarker</code>, or both. Ranges are UTF-8 binary sorted.",
+                                        "properties": {
+                                            "BeginMarker": {
+                                                "description": "The key that starts an optional key range for an export job. Ranges are inclusive and UTF-8 binary sorted.",
+                                                "minLength": 1,
+                                                "type": "string"
+                                            },
+                                            "EndMarker": {
+                                                "description": "The key that ends an optional key range for an export job. Ranges are inclusive and UTF-8 binary sorted.",
+                                                "minLength": 1,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "type": "object"
+                },
+                "RoleARN": {
+                    "description": "The new role Amazon Resource Name (ARN) that you want to associate with this cluster. To create a role ARN, use the <a href=\"http://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html\">CreateRole</a> API action in AWS Identity and Access Management (IAM).",
+                    "maxLength": 255,
+                    "pattern": "arn:aws.*:iam::[0-9]{12}:role/.*",
+                    "type": "string"
+                },
+                "ShippingOption": {
+                    "description": "The updated shipping option value of this cluster's <a>ShippingDetails</a> object.",
+                    "enum": [
+                        "SECOND_DAY",
+                        "NEXT_DAY",
+                        "EXPRESS",
+                        "STANDARD"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ClusterId"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

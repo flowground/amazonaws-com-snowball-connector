@@ -1,0 +1,138 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "example": {
+                "Address": {
+                    "City": "Seattle",
+                    "Company": "My Company's Name",
+                    "Country": "USA",
+                    "Name": "My Name",
+                    "PhoneNumber": "425-555-5555",
+                    "PostalCode": "98101",
+                    "StateOrProvince": "WA",
+                    "Street1": "123 Main Street"
+                }
+            },
+            "properties": {
+                "Address": {
+                    "description": "The address that you want the Snowball shipped to.",
+                    "properties": {
+                        "AddressId": {
+                            "description": "The unique ID for an address.",
+                            "maxLength": 40,
+                            "minLength": 40,
+                            "pattern": "ADID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+                            "type": "string"
+                        },
+                        "City": {
+                            "description": "The city in an address that a Snowball is to be delivered to.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "Company": {
+                            "description": "The name of the company to receive a Snowball at an address.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "Country": {
+                            "description": "The country in an address that a Snowball is to be delivered to.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "IsRestricted": {
+                            "description": "If the address you are creating is a primary address, then set this option to true. This field is not supported in most regions.",
+                            "type": "boolean"
+                        },
+                        "Landmark": {
+                            "description": "This field is no longer used and the value is ignored.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "Name": {
+                            "description": "The name of a person to receive a Snowball at an address.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "PhoneNumber": {
+                            "description": "The phone number associated with an address that a Snowball is to be delivered to.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "PostalCode": {
+                            "description": "The postal code in an address that a Snowball is to be delivered to.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "PrefectureOrDistrict": {
+                            "description": "This field is no longer used and the value is ignored.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "StateOrProvince": {
+                            "description": "The state or province in an address that a Snowball is to be delivered to.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "Street1": {
+                            "description": "The first line in a street address that a Snowball is to be delivered to.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "Street2": {
+                            "description": "The second line in a street address that a Snowball is to be delivered to.",
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "Street3": {
+                            "description": "The third line in a street address that a Snowball is to be delivered to.",
+                            "minLength": 1,
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "required": [
+                "Address"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}
